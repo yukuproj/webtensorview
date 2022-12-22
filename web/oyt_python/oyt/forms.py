@@ -1,0 +1,67 @@
+
+
+from django import forms
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Name', max_length=100)
+    password = forms.CharField(
+        label='Password', widget=forms.PasswordInput, max_length=100)
+
+
+class RegisterForm(forms.Form):
+    username = forms.CharField(label='Username', max_length=100)
+    password = forms.CharField(
+        label='Password', widget=forms.PasswordInput, max_length=100)
+    email = forms.CharField(label='Email ID', max_length=100)
+    first_name = forms.CharField(label='First Name', max_length=100)
+    last_name = forms.CharField(label='Last Name', max_length=100)
+
+
+class CommentForm(forms.Form):
+    text = forms.CharField(label='text', max_length=300)
+
+
+class NewVideoForm(forms.Form):
+    title = forms.CharField(label='Title', max_length=100)
+    description = forms.CharField(label='Description', max_length=300)
+    is_private = forms.BooleanField(label='Private', required=False)
+    video = forms.FileField()
+
+class NewVideoCompressedForm(forms.Form):
+    title = forms.CharField(label='Title', max_length=100)
+    description = forms.CharField(label='Description', max_length=300)
+    is_private = forms.BooleanField(label='Private', required=False)
+    video = forms.FileField()
+
+
+class EditVideoForm(forms.Form):
+    title = forms.CharField(label='Title', max_length=100, required=False)
+    description = forms.CharField(
+        label='Description', max_length=300, required=False)
+    is_private = forms.BooleanField(label='Private', required=False)
+
+
+class NewPlaylistForm(forms.Form):
+    name = forms.CharField(label='Playlist Name', max_length=100)
+    description = forms.CharField(
+        label='Description', max_length=300, required=False)
+    is_private = forms.BooleanField(label='Private', required=False)
+
+TRANSFORM_CHOICES= [
+    ('tucker', 'tucker'),
+    ('tt', 'tt'),
+    ]
+
+class NewTransformForm(forms.Form):
+    transform_name= forms.CharField(label='Transformation type', widget=forms.Select(choices=TRANSFORM_CHOICES))
+    transform_quality = forms.FloatField(label='Quality (PSNR) (less than 45), dB',  required=True, initial=25, min_value = 1, max_value=45)
+    transform_chunk_size = forms.FloatField(label='Chunk size (d)',  required=True, initial=20, min_value = 1, max_value=50)
+ 
+class EditUserForm(forms.Form):
+    password = forms.CharField(
+        label='Password', widget=forms.PasswordInput, max_length=100, required=False)
+    first_name = forms.CharField(
+        label='First Name', max_length=100, required=False)
+    last_name = forms.CharField(
+        label='Last Name', max_length=100, required=False)

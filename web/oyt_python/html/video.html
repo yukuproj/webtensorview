@@ -1,0 +1,93 @@
+
+
+{% extends "parent.html" %}
+
+{% block title %}
+Video - {{ video.title }}
+{% endblock %}
+
+
+{% block body %}
+
+<h2>{{ video.title }}</h2>
+<div>
+  {% if user.is_authenticated %}
+  {% if user.id == video.user_id %}
+  <div class="btn-group" role="group" aria-label="Basic outlined example">
+    <a href="/delete_video/{{ video.id }}" class="btn btn-danger">Delete
+      Video</a>
+    <a href="/edit_video/{{ video.id }}" class="btn btn-outline-primary">Edit
+      Video</a>
+    <a href="/add_to_playlist/{{ video.id }}"
+      class="btn btn-outline-primary">Add To Playlist</a>
+  </div>
+  {% else %}
+  <a href="/add_to_playlist/{{ video.id }}" class="btn btn-outline-primary">Add
+    To Playlist</a>
+</div>
+{% endif %}
+{% endif %}
+</div>
+<br>
+
+ 
+
+
+
+<video class="video-js" id="my-video" width="1080" height="720" controls
+  data-setup="{}">
+  <source src="{{ video.path }}" type="video/{{ video_type }}">
+  Your browser does not support the video tag.
+</video>
+<br>
+<h3>{{ video.description }}</h3>
+<br><br>
+
+{% if form %}
+<form action="/video/{{ video.id }}" method="POST">
+  {% csrf_token %}
+  <br>
+  {% if liked == False %}
+  <input type='hidden' name='like' value='True'>
+  <br>
+  <button type="submit" class="btn btn-primary">Like</button>
+  {% else %}
+  <input type='hidden' name='like' value='False'>
+  <br>
+  <button type="submit" class="btn btn-primary">Unlike</button>
+  {% endif %}
+</form>
+{% endif %}
+
+{{ num_likes }} likes
+<br>
+
+
+<h3>Comments</h3>
+
+{% if form %}
+<form action="/comment" method="POST">
+  {% csrf_token %}
+  {{ form }}
+  <br>
+  <input type='hidden' name='video' value='{{ video.id }}'>
+  <br>
+  <button type="submit" class="btn btn-primary">Post Comment!</button>
+</form>
+{% endif %}
+
+<div class="col-8">
+  <div class="list-group">
+    {% for comment in comments %}
+    <a class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ comment.text }}</h5>
+        <small>posted on: {{ comment.datetime }} by {{ comment.user }}</small>
+      </div>
+    </a>
+
+    {% endfor %}
+  </div>
+</div>
+<br>
+{% endblock %}

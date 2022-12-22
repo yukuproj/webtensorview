@@ -1,0 +1,18 @@
+
+
+{% extends "parent.html" %}
+
+{% block title %}
+Create an TView account!
+{% endblock %}
+
+{% block body %}
+<form method="POST" action="register">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <br>
+  <button type="submit" class="btn btn-primary">Create Account!</button>
+</form>
+{% endblock %}

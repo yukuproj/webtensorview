@@ -1,0 +1,39 @@
+
+
+{% extends "parent.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="row">
+  <center>
+
+    <div class="col-md-4">
+
+      <form action="/remove_from_playlist/{{ playlist.id }}/" method="POST">
+        {% csrf_token %}
+
+        <ul class="list-group">
+          {% for video in videos %}
+          <li class="list-group-item">
+            <input class="form-check-input me-1" id="{{ video.id }}"
+              type="checkbox" value="{{ video.id }}" aria-label="..."
+              name="checks[]">
+            {{ video.title }}
+          </li>
+
+          {% endfor %}
+        </ul>
+
+        <br>
+        <button type="submit" class="btn btn-primary">Remove From
+          Playlist!</button>
+      </form>
+    </div>
+  </center>
+</div>
+
+{% endblock %}

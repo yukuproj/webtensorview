@@ -1,0 +1,46 @@
+
+
+{% extends "parent.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block body %}
+<h1>{{ playlist.name }}</h1><br>
+<br>
+
+{% if user.is_authenticated %}
+{% if user.id == playlist.user_id %}
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <a href="/delete_playlist/{{ playlist.id }}" class="btn btn-danger">Delete
+    Playlist</a>
+  <a href="/remove_from_playlist/{{ playlist.id }}"
+    class="btn btn-outline-primary">Remove
+    Videos</a>
+</div>
+{% endif %}
+{% endif %}
+<br>
+
+{% for video in videos %}
+<br>
+<div class="card text-center" style="width: 30rem;">
+  <img src="{{ video.path }}.jpg" class="card-img-top" alt="..."
+    preload="metadata" type="video/mp4">
+  <div class="card-body">
+    <h4 class="card-title">{{ video.title }}</h4>
+    <p class="card-text">{{ video.description }}</p>
+    <a href="/playlist/{{ playlist.id }}/{{ video.id }}"
+      class="btn btn-primary">Watch
+      Video</a>
+  </div>
+  <div class="card-footer text-muted">
+    Uploaded by {{ video.user }} on {{ video.datetime }}
+  </div>
+</div>
+<br>
+
+{% endfor %}
+
+{% endblock %}

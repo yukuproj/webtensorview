@@ -1,0 +1,22 @@
+
+
+{% extends "parent.html" %}
+
+{% block title %}
+TensorView New Video
+{% endblock %}
+
+{% block body %}
+<form method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+    <tr>
+      <td></td>
+      <td>
+        <button type="submit" class="btn btn-primary">Make transformation</button>
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}

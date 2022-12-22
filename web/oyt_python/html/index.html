@@ -1,0 +1,103 @@
+
+
+{% extends "parent.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block body %}
+<br>
+
+<div class="row justify-content-md-center">
+  {% if searched %}
+  <div>
+    <div class="col">
+      <h2>Videos</h2>
+      {% for video in videos %}
+      <br>
+      <div class="card text-center" style="width: 30rem;">
+        <img src="{{ video.path }}.jpg" class="card-img-top" alt="..."
+          preload="metadata" type="video/mp4">
+        <div class="card-body">
+          <h4 class="card-title">{{ video.title }}</h4>
+          <p class="card-text">{{ video.description }}</p>
+ 
+
+                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                  <a href="/video/{{ video.id }}" class="btn btn-primary">Watch
+                    Video</a>
+                 
+                </div>
+
+
+        </div>
+        <div class="card-footer text-muted">
+          Uploaded by {{ video.user }} on {{ video.datetime }}
+        </div>
+      </div>
+      <br>
+
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="col">
+    <h2>Most Recent Videos</h2>
+    {% for video in most_recent_videos %}
+    <br>
+    <div class="card text-center" style="width: 35em;">
+      <img src="{{ video.path }}.jpg" class="card-img-top" alt="..."
+        preload="metadata" type="video/mp4">
+      <div class="card-body">
+        <h4 class="card-title">{{ video.title }}</h4>
+        <p class="card-text">{{ video.description }}</p>
+        <!--  <a href="/video/{{ video.id }}" class="btn btn-primary">Watch
+          Video</a> 
+        -->
+
+          <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <a href="/video/{{ video.id }}" class="btn btn-primary">Watch</a>
+            <a href="/transform_video/{{ video.id }}" class="btn btn-outline-primary">Transform</a>
+            <a href="/download_video/{{ video.id }}" class="btn btn-outline-primary">Download</a>
+            <a href="/delete_video/{{ video.id }}" class="btn btn-outline-primary">Delete</a>
+          </div>
+
+
+
+      </div>
+      <div class="card-footer text-muted">
+        Uploaded by {{ video.user }} on {{ video.datetime }}
+      </div>
+    </div>
+    <br>
+
+    {% endfor %}
+  </div>
+
+  <!-- 
+  <div class="col">
+    <h2>Top Liked Videos</h2>
+    {% for video in most_liked_videos %}
+    <br>
+    <div class="card text-center" style="width: 30rem;">
+      <img src="{{ video.path }}.jpg" class="card-img-top" alt="..."
+        preload="metadata" type="video/mp4">
+      <div class="card-body">
+        <h4 class="card-title">{{ video.title }}</h4>
+        <p class="card-text">{{ video.description }}</p>
+        <a href="/video/{{ video.id }}" class="btn btn-primary">Watch
+          Video</a>
+      </div>
+      <div class="card-footer text-muted">
+        Uploaded by {{ video.user }} on {{ video.datetime }}
+      </div>
+    </div>
+    <br>
+
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>  -->
+
+{% endblock %}
